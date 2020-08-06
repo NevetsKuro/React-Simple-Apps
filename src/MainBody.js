@@ -3,7 +3,6 @@ import './css/index.css';
 import ClockTool from './ClockTool';
 import MusicMaster from './MusicMaster';
 import Loading from './Loading';
-// import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Tabs, Tab } from 'react-bootstrap';
 
 export default class MainBody extends React.Component {
