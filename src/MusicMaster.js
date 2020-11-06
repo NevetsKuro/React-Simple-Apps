@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import './css/musicMaster.css';
 import Gallery from './Gallery';
-import { Container, Form, Button, Row, Col } from 'react-bootstrap';
+import { Badge, Container, Form, Button, Row, Col } from 'react-bootstrap';
 
 var request = require('request'); // "Request" library
 
@@ -22,7 +22,8 @@ export default class MusicMaster extends React.Component {
         const BASE_URL = 'https://api.spotify.com/v1/search';
         const FETCH_URL = BASE_URL + '?q=' + this.state.query + '&type=artist&limit=1';
 
-        const ACCESS_TOKEN = 'BQADOYUjePQkrlrTVVrTqvfNycqLnGln_99th231EEcSlF8OqES1xKWVAUs5WKuLR4Xwbx01F2gGfGJDBd5gsoEnWDHF-j6TQGLY4JFT6oy693fK3MFNAqtkuyju3oqOtd5wruFT_ayAZNn7tLAmmYdz3UAwopLIohEvC4OwmB1Q7OJOIQ'
+        // const ACCESS_TOKEN = 'BQADOYUjePQkrlrTVVrTqvfNycqLnGln_99th231EEcSlF8OqES1xKWVAUs5WKuLR4Xwbx01F2gGfGJDBd5gsoEnWDHF-j6TQGLY4JFT6oy693fK3MFNAqtkuyju3oqOtd5wruFT_ayAZNn7tLAmmYdz3UAwopLIohEvC4OwmB1Q7OJOIQ'
+        const ACCESS_TOKEN = 'BQDoa59bKqYF8TqxfY6fCSCmjCU_bxZnGXStPLs2qZlPW3fhrTlkHDtAA2Dfuc6FKae0MeIRJS2KsHlanew'
         console.log('F_URL', FETCH_URL);
 
         var options = {
@@ -32,9 +33,9 @@ export default class MusicMaster extends React.Component {
         };
 
         request.get(options, (error, response, body) => {
-            console.log('body',body);
+            console.log('body', body);
             if (body.error != null) {
-                switch(body.error.status){
+                switch (body.error.status) {
                     case 401:
                         alert(body.error.message);
                         break;
@@ -77,7 +78,7 @@ export default class MusicMaster extends React.Component {
 
     render() {
         return (
-            <Fragment className="mainbody">
+            <Fragment>
                 <Container className="musicBody" fluid>
                     <Row>
                         <Col lg={5}>
@@ -112,14 +113,16 @@ export default class MusicMaster extends React.Component {
                                     </div>
                                     <div className="profileData">
                                         <p>Artist Name: {this.state.name}</p>
-                                        <p>
+                                        <div>
                                             <ul className="genres">
                                                 {
-                                                    this.state.genre.map((v,k)=> <li>{v}</li> )
+                                                    this.state.genre.map((v, k) =>
+                                                        <li><Badge pill variant="primary">{v}</Badge>{' '}</li>
+                                                    )
                                                 }
                                             </ul>
-                                        </p>
-                                        <p>{this.state.totFoll} Followers </p>
+                                        </div>
+                                        <p>{(this.state.totFoll?this.state.totFoll.toLocaleString():'')} Followers </p>
                                     </div>
                                 </Col>
                             </Row>

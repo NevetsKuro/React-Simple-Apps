@@ -17,23 +17,24 @@ class ClockTool extends React.Component {
 
     render() {
         return (
-            <div className="timePanel centerAlign">
-                <div className="fs-H2">Countdown Timer</div>
-                <div className="fs-H">For {this.state.isEvent}</div>
-                <Clock
-                    eventDate={this.state.eventDate}
-                />
-                <div className="changeDate">
-                    <input className="form-control inputCss" type="text" placeholder="Enter Event Name"
-                        onChange={ev => this.setState({ isEvent: ev.target.value })}
+            <div className="timePanelMain">
+                <div className="timePanel centerAlign rounded border border-light">
+                    <div className="fs-H2 text-light">Countdown Timer</div>
+                    <div className="fs-H text-light">For {this.state.isEvent}</div>
+                    <Clock
+                        eventDate={this.state.eventDate}
                     />
-                    <input className="form-control inputCss" type="text" placeholder="Enter Event Date"
-                        onChange={ev => this.setState({ eventDate: ev.target.value })}
-                    />
-                </div>
-                <div>
-                    <Button variant="outline-danger">Submit</Button>
-                    {/* <button className="buttonCss fs-C" onClick={()=>this.changeDate()}>Change</button> */}
+                    <div className="changeDate px-5">
+                        <input className="form-control inputCss" type="text" placeholder="Enter Event Name"
+                            onChange={ev => this.setState({ isEvent: ev.target.value })}
+                        />
+                        <input className="form-control inputCss" type="text" placeholder="Enter Event Date"
+                            onChange={ev => this.setState({ eventDate: ev.target.value })}
+                        />
+                    </div>
+                    <div>
+                        <Button variant="outline-light" onClick={()=>this.changeDate()}>Submit</Button>
+                    </div>
                 </div>
             </div>
         )

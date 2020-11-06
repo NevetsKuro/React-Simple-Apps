@@ -13,9 +13,9 @@ class Clock extends React.Component{
         }
     }
     getTimeUtil(date){
-        console.log("date: ", date);
+        // console.log("date: ", date);
         const time = Date.parse(date) - Date.parse(new Date());
-        console.log("time",time);
+        // console.log("time",time);
 
         const secs = Math.floor((time/1000) % 60);
         const mins = Math.floor((time/1000/60) % 60);
@@ -26,7 +26,7 @@ class Clock extends React.Component{
         this.setState({hours:hrs});
         this.setState({mins:mins});
         this.setState({secs:secs});
-        console.log(this.state)
+        // console.log(this.state)
     }
 
     componentWillMount(){
