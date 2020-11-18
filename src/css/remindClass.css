@@ -1,22 +1,26 @@
-.remindClass{
+.remindClass {
     display: flex;
     text-align: center;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(to right top, #5c73de, #4591eb, #46abf1, #64c2f2, #8dd8f2);;
+    background-image: linear-gradient(to right, #2a6cd1, #2e88e0, #46a3ec, #67bdf6, #8cd7ff);
     min-height: 98vh;
     padding-top: 20px;
 }
-.title{
+
+.title {
     text-align: center;
 }
-.cursorOnHover{
+
+.cursorOnHover {
     cursor: pointer;
 }
-.card-items{
+
+.card-items {
     background-color: #dbf0ff!important;
 }
-.hrClass{
+
+.hrClass {
     width: 20%;
     background: white;
     border: 5px solid white;

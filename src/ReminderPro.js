@@ -26,7 +26,7 @@ class ReminderPro extends Component {
     }
 
     renderReminders() {
-        const { reminders } = this.props;
+        const { reminders } = this.props.reminders;
         return (
             <ul className="list-group col-sm-5 m-4">
                 {
