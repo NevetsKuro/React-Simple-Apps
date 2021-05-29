@@ -18,6 +18,7 @@ class SignIn extends Component {
   signin() {
     console.log("state", this.state);
     const { email, password } = this.state;
+    const log = this;
     firebaseApp
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -25,7 +26,7 @@ class SignIn extends Component {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        this.setState({ error: { message: errorMessage } });
+        log.setState({ error: { message: errorMessage } });
         console.log(errorMessage);
         // ...
       });
@@ -78,14 +79,14 @@ class SignIn extends Component {
                 >
                   Sign in
                 </Button>
-                <Button
+                {/* <Button
                   variant="primary"
                   className="mr-2"
                   type="button"
                   onClick={() => this.logout()}
                 >
                   Logout
-                </Button>
+                </Button> */}
                 <div>{this.state.error.mesage}</div>
                 <div>
                   <Link to={"/React-Simple-Apps/signup"}>

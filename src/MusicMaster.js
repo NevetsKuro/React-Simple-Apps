@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import './css/musicMaster.css';
 import Gallery from './Gallery';
 import { Badge, Container, Form, Button, Row, Col } from 'react-bootstrap';
+import { database } from './firebase';
 
 var request = require('request'); // "Request" library
 
@@ -14,17 +15,51 @@ export default class MusicMaster extends React.Component {
             artist_picture: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAC7CAMAAACjH4DlAAAAXVBMVEUpMTRnjLEiJiNcfJxrkbgkKSgoLzEmLS5EWWxXdpM0QkxAVGUuOT9kiKslKytSbohPaYJggqM+UF8wO0I6SldIX3Q2RE9LY3oyP0crNDk+UWFWdJA7S1lPaH9jhacMRR/OAAADlElEQVR4nO3c7XKqMBSFYSi4CSCB8CGkKvd/mUfAVoNgHUiPdbuef51aprwDAQLiOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP6NAbiySAT17jVYIZFNloUVZ1cjg2Wu1WJypxLUqUVn87LVaiLbKtxuj46vti+4wwvKmMUjEs9drkaBSv1HDdVX1isOHPA45fIuGHLV89rot8DH8861oIksa0Q6BP569bgucc3gbsmbjMchhb5HIYeCWo9/kly+SVQ4K9GlU3RXLT7M55dBNlXbXHfu6WrqBMMpBTfx1zq6KhT3Y5CAdeZcLmHa37LqDTY5tap5o74sli2ScY8nmwSVHUI0uw/wqWtCDTY56PPNRl/M5Zs9NuOSQ2aiGG4r5s4/oc2ZXYpMjHefw5ictxN7NDpM93jAH6dM6t+nklPn75aAy7H+fTu0vXHLcHFnmdgfKz2Nu0k4cetjkEKMavmimclBwmW0Ob2cGuOSgnWfmULvJv9nGV58pb3YnLjkcKcxpdTG5bezMZDeXemxyUCSSy5mYX01tHAGZI0ySCGn2YJPDISevPZWctF74OTmM5sfxbSpVlcYn+OQ4BZFadNM/x6aYOsaSbt0bbWh8lFMOx9GlOPkstlMf11O3MBOVX/fgleN0HD2ZPt8o5+5uX4+nzHLMIhnP1EhUeVnAu+TQ4Z1HH7LvJTDNMdpf6HNiFL0S7s5/wDMHRdr4udjfreG2mR56sMxBjrfPrzYQEd6v0e0vh/4AwzGHLivfVeXXBhLE9/eUgddfADPMQU3abQ3ZefvQdDMVMqmfHmGYQ59nkVXe/USifuwBsrR74odhju9L/bS7Exf8PG4wzkEkLvcms1LK+NFHLVnmOJinW573aA2OOUgezEmg5PEHT/nloObeqfi75SA5e9X6hjkoEt699X2vHNtov+p5fV45qBHrvr3AKseqUZRfDpmt/WYLrxyPXachB3IgB3Ighwk5DMhhMHOsPO/weeXIkpUyTjkcvV2pvw/BJoez9kuS/UL45LACOQwMcqhSB5boUr1wjuEQmWQitkRk55n3V8zx9UoCi+8kGJanjq/4SgLK10wV3+HlL/k+k039Ozlqi4Pz/xQcbh6cXS05Hl7xZSYdKoTVl5n0w4dY+p3kv6DIhVX5ou/f/hlEtk46Bmve7wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABj/wCGXEuzlUGJPAAAAABJRU5ErkJggg==',
             genre: [],
             tracks: [],
-            totFoll: 0
+            totFoll: 0,
+            token: '',
+            updatedtoken: ''
         }
     }
-    search() {
-        console.log('query', this.state);
+
+    updateToken() {
+        if (this.state.token) {
+
+            database.ref('constant').set({
+                token: this.state.token,
+            }, (error) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    // Data saved successfully!
+                    console.log('Success');
+                    alert('Updated!');
+                    this.setState({ updatedtoken: this.state.token })
+                }
+            });
+        } else {
+            alert('No token added');
+        }
+    }
+
+    async search() {
+        // console.log('query', this.state);
         const BASE_URL = 'https://api.spotify.com/v1/search';
         const FETCH_URL = BASE_URL + '?q=' + this.state.query + '&type=artist&limit=1';
 
-        // const ACCESS_TOKEN = 'BQADOYUjePQkrlrTVVrTqvfNycqLnGln_99th231EEcSlF8OqES1xKWVAUs5WKuLR4Xwbx01F2gGfGJDBd5gsoEnWDHF-j6TQGLY4JFT6oy693fK3MFNAqtkuyju3oqOtd5wruFT_ayAZNn7tLAmmYdz3UAwopLIohEvC4OwmB1Q7OJOIQ'
-        const ACCESS_TOKEN = 'BQDoa59bKqYF8TqxfY6fCSCmjCU_bxZnGXStPLs2qZlPW3fhrTlkHDtAA2Dfuc6FKae0MeIRJS2KsHlanew'
-        console.log('F_URL', FETCH_URL);
+        let ACCESS_TOKEN = 'BQAgUWulcYxw16cMuV4h4pkzdFAvJcpgBedicIAuYfFxOGFM7woQYUisQsdFlkpXLVIckdkXVs1t9j2fTa8';
+        // console.log('F_URL', FETCH_URL);
+        await database.ref("constant").once('value')
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    console.log('SNAPSHOT', snapshot.val());
+                    this.setState({ updatedtoken: snapshot.val().token })
+                    ACCESS_TOKEN = snapshot.val().token
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
 
         var options = {
             url: FETCH_URL,
@@ -69,11 +104,25 @@ export default class MusicMaster extends React.Component {
                     } else {
                         console.log('error2', error2);
                     }
-
                 });
 
             }
         });
+    }
+
+    componentDidMount() {
+        database.ref("constant").once('value')
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    console.log('SNAPSHOT', snapshot.val());
+                    this.setState({ updatedtoken: snapshot.val().token })
+                    console.log('token', this.state.updatedtoken);
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
     }
 
     render() {
@@ -105,6 +154,22 @@ export default class MusicMaster extends React.Component {
                                         Search
                                 </Button>
                                 </Col>
+                                <Col lg={7}>
+                                    <Form.Control
+                                        className="mb-2"
+                                        id="inlineFormInput"
+                                        placeholder="Spotify Access Token(if not added/expired)"
+                                        onChange={(ev) => this.setState({ token: ev.target.value })}
+                                    />
+                                </Col>
+                                <Col lg={5}>
+                                    <Button type="submit" className="mb-2" onClick={(ev) => { ev.preventDefault(); this.updateToken() }}>
+                                        Push Token
+                                </Button>
+                                </Col>
+                                <Col>
+                                    <p style={{ overflow: 'hidden', overflowX: 'visible' }}>Current Token:{this.state.updatedtoken}</p>
+                                </Col>
                             </Row>
                             <Row className="justify-content-md-center text-center">
                                 <Col sm={10} className="profile">
@@ -122,7 +187,7 @@ export default class MusicMaster extends React.Component {
                                                 }
                                             </ul>
                                         </div>
-                                        <p>{(this.state.totFoll?this.state.totFoll.toLocaleString():'')} Followers </p>
+                                        <p>{(this.state.totFoll ? this.state.totFoll.toLocaleString() : '')} Followers </p>
                                     </div>
                                 </Col>
                             </Row>

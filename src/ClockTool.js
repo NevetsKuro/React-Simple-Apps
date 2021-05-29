@@ -25,15 +25,15 @@ class ClockTool extends React.Component {
                         eventDate={this.state.eventDate}
                     />
                     <div className="changeDate px-5">
-                        <input className="form-control inputCss" type="text" placeholder="Enter Event Name"
+                        <input className="form-control inputCss" type="text" placeholder="Enter Event Name "
                             onChange={ev => this.setState({ isEvent: ev.target.value })}
                         />
-                        <input className="form-control inputCss" type="text" placeholder="Enter Event Date"
+                        <input className="form-control inputCss" type="text" placeholder="Enter Event Date (MM/DD/YYY)"
                             onChange={ev => this.setState({ eventDate: ev.target.value })}
                         />
                     </div>
                     <div>
-                        <Button variant="outline-light" onClick={()=>this.changeDate()}>Submit</Button>
+                        <Button variant="outline-light" id="buttonhover" onClick={() => this.changeDate()}>Submit</Button>
                     </div>
                 </div>
             </div>

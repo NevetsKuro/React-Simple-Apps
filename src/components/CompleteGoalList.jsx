@@ -22,7 +22,7 @@ class CompleteGoalList extends Component {
 
   render() {
     return (
-      <div>
+      <div className="text-center">
         <ListGroup>
           {this.props.completeGoals.map((completeGoal, index) => {
             const { title, email } = completeGoal;
@@ -34,7 +34,7 @@ class CompleteGoalList extends Component {
           })}
         </ListGroup>
         <button
-          className="btn btn-block btn-primary m-3"
+          className="btn btn-primary m-3"
           onClick={() => this.clearCompleted()}
         >
           Clear All

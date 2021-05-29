@@ -12,7 +12,8 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
-export const firebaseGoals = firebase.database().ref('goals');
-export const completeGoalRef = firebase.database().ref('completeGoals');
-//   firebase.initializeApp(firebaseConfig);
-//   firebase.analytics();
+export const database = firebase.database();
+export const firebaseGoals = database.ref('goals');
+export const completeGoalRef = database.ref('completeGoals');
+// firebase.initializeApp(firebaseConfig);
+firebase.analytics();

@@ -17,7 +17,11 @@ class ReminderPro extends Component {
 
     addReminder() {
         console.log('Reminder', this);
-        this.props.addReminder(this.state.text, this.state.dueDate);
+        if (this.state.dueDate && this.state.text) {
+            this.props.addReminder(this.state.text, this.state.dueDate);
+        } else {
+            alert("Fill the required field!");
+        }
         // console.log('this.state.dueDate', this.state.dueDate);
     }
 
@@ -52,7 +56,7 @@ class ReminderPro extends Component {
                                     <div className="col-12">
                                         <div className="text-left"><small>{moment(new Date(reminder.dueDate)).fromNow()}</small></div>
                                     </div>
-                                    
+
                                 </div>
                             </li>
                         )
@@ -68,7 +72,7 @@ class ReminderPro extends Component {
                 <div className="title">
                     <p className="h3 text-light">Reminder Pro</p>
                 </div>
-                <hr className="hrClass"/>
+                <hr className="hrClass" />
                 <div className="form-inline">
                     <Form>
                         <Form.Row>

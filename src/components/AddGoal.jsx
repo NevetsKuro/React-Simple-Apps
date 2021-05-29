@@ -15,7 +15,8 @@ class AddGoal extends Component {
     console.log("AddGoal:state", this.state);
     console.log("AddGoal:props", this.props);
     const { email } = this.props;
-    firebaseGoals.push({ email: email, title: this.state.title });
+    var k = firebaseGoals.push({ email: email, title: this.state.title }).key;
+    console.log("key", k);
   }
 
   render() {
@@ -28,8 +29,7 @@ class AddGoal extends Component {
           <Col sm="4">
             <Form.Control
               plaintext
-              placeholder="ADD New Goal..."
-              className="border border-bottom"
+              className="border border-bottom p-2"
               onChange={(event) => this.setState({ title: event.target.value })}
             />
           </Col>

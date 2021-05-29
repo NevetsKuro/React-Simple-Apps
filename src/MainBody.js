@@ -20,9 +20,9 @@ class MainBody extends React.Component {
     }
 
     render() {
-        console.log('state1', this.props);
+        // console.log('state1', this.props);
         return (
-            <Row className="App">
+            <Row id="my-0" className="App">
                 <Col sm={2}>
                 </Col>
                 <Col sm={8} className="text-center">
@@ -36,7 +36,7 @@ class MainBody extends React.Component {
                     >Logout</Button>
                 </Col>
                 <Col sm={12}>
-                    <Jumbotron className="bg-light p-1">
+                    <Jumbotron className="bg-light">
                         <Tabs fill defaultActiveKey="home" id="uncontrolled-tab-example">
                             <Tab eventKey="home" title="Countdown Timer">
                                 <ClockTool />
