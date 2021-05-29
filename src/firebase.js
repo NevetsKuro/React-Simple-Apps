@@ -15,5 +15,9 @@ export const firebaseApp = firebase.initializeApp(firebaseConfig);
 export const database = firebase.database();
 export const firebaseGoals = database.ref('goals');
 export const completeGoalRef = database.ref('completeGoals');
-// firebase.initializeApp(firebaseConfig);
 firebase.analytics();
+
+
+// info
+//https://console.firebase.google.com/u/0/project/eatmomo-b131c/database/eatmomo-b131c/data
+//https://firebase.google.com/docs/database/web/read-and-write#web-v8_3
