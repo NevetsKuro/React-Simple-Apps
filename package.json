@@ -1,6 +1,6 @@
 {
   "name": "react_tools",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "private": true,
   "main": "server.js",
   "dependencies": {
@@ -50,6 +50,5 @@
   "engines": {
     "npm": "6.x",
     "node": "14.x"
-  },
-  "homepage": "http://stark1996.github.io/React-Simple-Apps"
+  }
 }
